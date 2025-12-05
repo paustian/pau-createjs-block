@@ -3,6 +3,7 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
  */
+import { useEffect } from '@wordpress/element';
 import {__} from '@wordpress/i18n';
 
 /**
@@ -26,6 +27,8 @@ import './editor.scss';
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
+ * This file was updated to properly load the js scripts that are dynamically different
+ * for each block
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
  *
@@ -37,11 +40,52 @@ export default function Edit({attributes, setAttributes}) {
 	let content_dir = '';
 	let animCont = '';
 	let domOver = '';
-	if (!typeof initFnc !== 'undefined') {
-		initId = initFnc.substring(4, initFnc.length);
+	if (initFnc && typeof initFnc === 'string' && initFnc.length > 4) {
+		initId = initFnc.substring(4);
 		animCont = "animation_container" + initId;
 		domOver = "dom_overlay_container" + initId
 	}
+	useEffect(() => {
+		// Only proceed if the relative path and init function are set
+		if (javascriptPath && initFnc) {
+
+			// 1. Construct the FULL URL using the localized data
+			// UPLOAD_URL comes from the PAU_BLOCK_DATA object defined in PHP
+			const fullScriptUrl = `${PAU_BLOCK_DATA.uploadUrl}/${javascriptPath}`;
+
+			// 2. Create the <script> tag natively (or using React's method for external scripts)
+			const script = document.createElement('script');
+			script.src = fullScriptUrl;
+			script.async = true;
+
+			// 3. Attach the load listener BEFORE appending the script
+			script.onload = () => {
+				try {
+					// Once the script is loaded, execute the initialization function
+					if (window[initFnc]) {
+						window[initFnc](''); // Pass whatever parameters your init function needs
+					} else {
+						console.error(`Initialization function ${initFnc} not found after loading script.`);
+					}
+				} catch (error) {
+					console.error('Error calling initialization function:', error);
+				}
+			};
+
+			// 4. Append the script to the animation container
+			const container = document.getElementById(animCont); // You need to make sure animCont is defined correctly
+			if (container) {
+				container.appendChild(script);
+			}
+
+			// Cleanup function to remove the script when the block unmounts or path changes
+			return () => {
+				if (container && script) {
+					container.removeChild(script);
+				}
+			};
+		}
+	}, [javascriptPath, initFnc]);
 	return (
 		<>
 			<InspectorControls>
@@ -112,7 +156,6 @@ export default function Edit({attributes, setAttributes}) {
 						<canvas id={initId} width={canvasWidth} height={canvasHeight} className="default">
 						</canvas>
 					</div>
-					<script src={javascriptPath}></script>
 					<script>
 						window.addEventListener("load", {initFnc + "(" + content_dir + ");"})
 					</script>
