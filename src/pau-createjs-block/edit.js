@@ -2,8 +2,7 @@
  *
  * A Gutenberg Block for handling html5 animations created with CreateJS
  *
- * @package Paustian
- * @subpackage CreateJSBlock
+ * @package PaustianCreateJSBlock
  */
 
 import { useEffect } from '@wordpress/element';

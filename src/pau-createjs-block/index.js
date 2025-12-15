@@ -1,8 +1,7 @@
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
- * @package Paustian
- * @subpackage CreateJSBlock
+ * @package PaustianCreateJSBlock
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 

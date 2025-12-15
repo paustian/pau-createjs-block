@@ -1,4 +1,4 @@
-# CreateJS Block
+# Pau CreateJS Block
 Author:            Timothy Paustian <br />
 Author URI:        https://textbookconsortia.com/about-the-author/ <br />
 Donate link: <br />
