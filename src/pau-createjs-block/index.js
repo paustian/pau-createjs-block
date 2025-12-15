@@ -1,9 +1,12 @@
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
+ * @package Paustian
+ * @subpackage CreateJSBlock
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-import { registerBlockType } from '@wordpress/blocks';
+
+import { registerBlockType } from "@wordpress/blocks";
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -12,23 +15,25 @@ import { registerBlockType } from '@wordpress/blocks';
  *
  * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
  */
-import './style.scss';
+import "./style.scss";
 
 /**
  * Internal dependencies
  */
-import Edit from './edit';
-import metadata from './block.json';
-import save from './save';
+import Edit from "./edit";
+import metadata from "./block.json";
+import save from "./save";
+
 /**
- * Every block starts by registering a new block type definition.
+ * Every block starts by registering a new block type definition. This code registers the javascripts
+ * that will be used in this block
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-registerBlockType( metadata.name, {
-	/**
-	 * @see ./edit.js
-	 */
-	edit: Edit,
-	save
-} );
+registerBlockType(
+	metadata.name,
+	{
+		edit: Edit,
+		save
+	}
+);

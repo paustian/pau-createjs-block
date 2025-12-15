@@ -1,7 +1,7 @@
 {
 	"name": "pau-createjs-block",
-	"version": "0.1.0",
-	"description": "Block for displaying CreateJS media animations.",
+	"version": "0.2.0",
+	"description": "Block for displaying html5 animations created with CreateJS.",
 	"author": "Timothy Paustian",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
@@ -15,6 +15,10 @@
 		"start": "wp-scripts start --webpack-copy-php --blocks-manifest"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^30.22.0"
+		"@eslint/eslintrc": "^3.3.3",
+		"@eslint/js": "^9.39.2",
+		"@wordpress/scripts": "^30.22.0",
+		"eslint": "^8.57.1",
+		"eslint-config-wordpress": "^2.0.0"
 	}
 }

@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see https://make.wordpress.org/core/2025/03/13/more-efficient-block-type-registration-in-6-8/
  * @see https://make.wordpress.org/core/2024/10/17/new-block-type-registration-apis-to-improve-performance-in-wordpress-6-7/
  */
-function create_block_pau_createjs_block_block_init() {
+function create_block_pau_createjs_block_block_init(): void {
 	/**
 	 * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
 	 * based on the registered block metadata.
@@ -59,36 +59,39 @@ function create_block_pau_createjs_block_block_init() {
 
 add_action( 'init', 'create_block_pau_createjs_block_block_init' );
 
-function pau_createjs_block_editor_localize_data() {
+/**
+ * Adds the createjs library to the page and adds the content_url, which will both be used by edit.js
+ * to find the path to the JavaScript that controls the HTML5 animation.
+ */
+function pau_createjs_block_editor_localize_data(): void {
 
-	// Safety check to ensure we are in the admin block editor
+	// Safety check to ensure we are in the admin block editor.
 	global $current_screen;
-
-	// Check if the current screen is the block editor (post/page editor)
+	// Check if the current screen is the block editor (post/page editor).
 	if ( ! is_a( $current_screen, 'WP_Screen' ) || ! $current_screen->is_block_editor() ) {
 		return;
 	}
 
 	wp_enqueue_script(
-		'createjs-library', // Unique handle for the script
-		'https://code.createjs.com/1.0.0/createjs.min.js', // Full CDN URL
-		array(), // It has no dependencies, so the array is empty
-		'1.0.0', // Version number
-		false // Load in the <head> section (default, often better for libraries)
+		'createjs-library', // Unique handle for the script.
+		'https://code.createjs.com/1.0.0/createjs.min.js', // Full CDN URL.
+		array(), // It has no dependencies, so the array is empty.
+		'1.0.0', // Version number.
+		false // Load in the <head> section (default, often better for libraries).
 	);
 
-	// --- Your Localization Logic ---
+	// --- Your Localization Logic ---.
 	$editor_script_handle = 'create-block-pau-createjs-block-editor-script';
 
-	// Check if the script handle has been registered
+	// Check if the script handle has been registered.
 	if ( ! wp_script_is( $editor_script_handle, 'registered' ) ) {
 		return;
 	}
 
 	$base_url = content_url();
 
-	$script_data = array( 'uploadUrl' => $base_url );
-	$json_data = wp_json_encode( $script_data );
+	$script_data   = array( 'uploadUrl' => $base_url );
+	$json_data     = wp_json_encode( $script_data );
 	$inline_script = "const PAU_BLOCK_DATA = {$json_data};";
 
 	wp_add_inline_script(
@@ -99,8 +102,13 @@ function pau_createjs_block_editor_localize_data() {
 }
 // Run on 'init' with a later priority (99) to ensure registration is complete.
 add_action( 'admin_enqueue_scripts', 'pau_createjs_block_editor_localize_data', 99 );
-function pau_createjs_register_scripts(){
-	wp_register_script( 'createjs', 'https://code.createjs.com/1.0.0/createjs.min.js');
+
+/**
+ * Registers the createjs library and enqueues the createjs library. Createjs controls the HTML5 animation.
+ * That the block creates
+ */
+function pau_createjs_register_scripts() {
+	wp_register_script( 'createjs', 'https://code.createjs.com/1.0.0/createjs.min.js' );
 	wp_enqueue_script( 'createjs' );
 }
 add_action( 'wp_enqueue_scripts', 'pau_createjs_register_scripts' );
