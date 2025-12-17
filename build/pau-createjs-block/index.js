@@ -37,8 +37,7 @@ __webpack_require__.r(__webpack_exports__);
  *
  * A Gutenberg Block for handling html5 animations created with CreateJS
  *
- * @package Paustian
- * @subpackage CreateJSBlock
+ * @package PaustianCreateJSBlock
  */
 
 
@@ -244,8 +243,7 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
- * @package Paustian
- * @subpackage CreateJSBlock
+ * @package PaustianCreateJSBlock
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 
@@ -294,6 +292,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+/**
+ * Registers a new block provided a unique name and an object defining its behavior.
+ *
+ * @package PaustianCreateJSBlock
+ * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
+ */
+
 
 
 function save({

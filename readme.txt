@@ -1,15 +1,15 @@
 # Pau CreateJS Block
-Author:            Timothy Paustian <br />
-Author URI:        https://textbookconsortia.com/about-the-author/ <br />
-Donate link: <br />
-Plugin URI: <br />
-License URI: <br />
-License:           GPLv2 or later <br />
-Tags:              post, page, gutenberg <br />
-Requires PHP:      8.0 <br />
-Requires at least: 7.0 <br />
-Tested up to:      6.0 <br />
-Stable tag:        0.2.0 <br />
+Author:            Timothy Paustian
+Author URI:        https://textbookconsortia.com/about-the-author/
+Plugin URI:
+License URI:
+License URI:
+License:           GPL-2.0-or-later
+Tags:              post, page, gutenberg
+Requires PHP:      7.4
+Requires at least: 6.8
+Tested up to:      6.9
+Stable tag:        0.2.0
 
 *A Gutenberg block plugin to display animations created using html5 and the createjs library.*
 ## Description

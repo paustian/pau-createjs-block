@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name:       Pau Createjs Block
+ * Plugin Name:       Pau CreateJS Block
  * Description:       A Gutenberg Block for the display of animations created in CreateJS.
  * Version:           0.2.0
- * Requires at least: 6.7
+ * Requires at least: 6.8
  * Requires PHP:      7.4
  * Author:            Timothy Paustian
  * License:           GPL-2.0-or-later
@@ -24,7 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see https://make.wordpress.org/core/2025/03/13/more-efficient-block-type-registration-in-6-8/
  * @see https://make.wordpress.org/core/2024/10/17/new-block-type-registration-apis-to-improve-performance-in-wordpress-6-7/
  */
-function create_block_pau_createjs_block_block_init(): void {
+function pau_create_block_pau_createjs_block_block_init(): void {
 	/**
 	 * Registers the block(s) metadata from the `blocks-manifest.php` and registers the block type(s)
 	 * based on the registered block metadata.
@@ -57,7 +57,7 @@ function create_block_pau_createjs_block_block_init(): void {
 	}
 }
 
-add_action( 'init', 'create_block_pau_createjs_block_block_init' );
+add_action( 'init', 'pau_create_block_pau_createjs_block_block_init' );
 
 /**
  * Adds the createjs library to the page and adds the content_url, which will both be used by edit.js
@@ -108,7 +108,13 @@ add_action( 'admin_enqueue_scripts', 'pau_createjs_block_editor_localize_data', 
  * That the block creates
  */
 function pau_createjs_register_scripts() {
-	wp_register_script( 'createjs', 'https://code.createjs.com/1.0.0/createjs.min.js' );
+	wp_register_script(
+		'createjs',
+		'https://code.createjs.com/1.0.0/createjs.min.js',
+			array(),
+		'1.0.0',
+		true
+	);
 	wp_enqueue_script( 'createjs' );
 }
 add_action( 'wp_enqueue_scripts', 'pau_createjs_register_scripts' );
