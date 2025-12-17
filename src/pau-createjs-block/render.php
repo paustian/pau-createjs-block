@@ -48,7 +48,9 @@ $pau_ok_html = array(
 	'b'      => array(),
 	'i'      => array(),
 	'u'      => array(),
-	'a'      => array()
+	'a'      => array(),
+	'sub'	 => array(),
+	'sup'    => array()
 )
 ?>
 

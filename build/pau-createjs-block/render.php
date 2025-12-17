@@ -16,39 +16,49 @@ if ( empty( $attributes['javascriptPath'] ) || empty( $attributes['canvasWidth']
 	return 'Variables undefined';
 }
 
-$javascript_path = $attributes['javascriptPath'];
-$canvas_width    = $attributes['canvasWidth'];
-$canvas_height   = $attributes['canvasHeight'];
-$description     = $attributes['description'];
-$init_func       = $attributes['initFnc'];
-$init_id         = substr( $init_func, 4, strlen( $init_func ) );
+$pau_javascript_path = $attributes['javascriptPath'];
+$pau_canvas_width    = $attributes['canvasWidth'];
+$pau_canvas_height   = $attributes['canvasHeight'];
+$pau_description     = $attributes['description'];
+$pau_init_func       = $attributes['initFnc'];
+$pau_init_id         = substr( $pau_init_func, 4, strlen( $pau_init_func ) );
 
-$content_base_url    = content_url() . '/';
-$full_javascript_url = esc_url( $content_base_url . $javascript_path );
-$assets_base_url     = esc_url( dirname( $full_javascript_url ) . '/' );
-$handle              = 'createjs-animation-block-script-' . md5( $full_javascript_url );
+$pau_content_base_url    = content_url() . '/';
+$pau_full_javascript_url = esc_url( $pau_content_base_url . $pau_javascript_path );
+$pau_assets_base_url     = esc_url( dirname( $pau_full_javascript_url ) . '/' );
+$pau_handle              = 'createjs-animation-block-script-' . md5( $pau_full_javascript_url );
 if ( ! is_admin() ) {
-	if ( ! wp_script_is( $handle, 'enqueued' ) ) {
+	if ( ! wp_script_is( $pau_handle, 'enqueued' ) ) {
 		// wp_enqueue_script now uses the correct, browser-accessible URL.
-		wp_enqueue_script( $handle, $full_javascript_url, array(), 1, true );
+		wp_enqueue_script( $pau_handle, $pau_full_javascript_url, array(), 1, true );
 
 		// The inline script uses the correct asset base URL.
-		$inline_script = "
+		$pau_inline_script = "
             window.addEventListener( 'load', function() {
                 // Call the initialization function, passing the required directory path.
-                " . esc_js( $init_func ) . "('" . esc_js( $assets_base_url ) . "');
+                " . esc_js( $pau_init_func ) . "('" . esc_js( $pau_assets_base_url ) . "');
             } );
         ";
-		wp_add_inline_script( $handle, $inline_script );
+		wp_add_inline_script( $pau_handle, $pau_inline_script );
 	}
 }
+$pau_ok_html = array(
+	'strong' => array(),
+	'em'     => array(),
+	'b'      => array(),
+	'i'      => array(),
+	'u'      => array(),
+	'a'      => array(),
+	'sub'	 => array(),
+	'sup'    => array()
+)
 ?>
 
-<div id="animation_container<?php echo esc_attr( $init_id ); ?>">
-	<div id="dom_overlay_container<?php echo esc_attr( $init_id ); ?>">
-		<canvas id="<?php echo esc_attr( $init_id ); ?>" width="<?php echo esc_attr( $canvas_width ); ?>" height="<?php echo esc_attr( $canvas_height ); ?>" class="default">
+<div id="animation_container<?php echo esc_attr( $pau_init_id ); ?>">
+	<div id="dom_overlay_container<?php echo esc_attr( $pau_init_id ); ?>">
+		<canvas id="<?php echo esc_attr( $pau_init_id ); ?>" width="<?php echo esc_attr( $pau_canvas_width ); ?>" height="<?php echo esc_attr( $pau_canvas_height ); ?>" class="default">
 		</canvas>
 	</div>
 </div>
-<p class="figure-border-createjs-block"><?php echo esc_attr( $description ); ?></p>
+<p class="figure-border-createjs-block"><?php echo wp_kses( $pau_description, $pau_ok_html ); ?></p>
 
