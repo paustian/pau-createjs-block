@@ -7,6 +7,8 @@
  * @see https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/block-api/block-metadata.md#render
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly.
+
 ?>
 <p <?php echo esc_attr( get_block_wrapper_attributes() ); ?>>
 </p>
@@ -36,7 +38,7 @@ if ( ! is_admin() ) {
 		$pau_inline_script = "
             window.addEventListener( 'load', function() {
                 // Call the initialization function, passing the required directory path.
-                " . esc_js( $pau_init_func ) . "('" . esc_js( $pau_assets_base_url ) . "');
+                " . esc_js( $pau_init_func ) . "();
             } );
         ";
 		wp_add_inline_script( $pau_handle, $pau_inline_script );

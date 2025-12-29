@@ -1,29 +1,19 @@
 /**
  * Registers a new block provided a unique name and an object defining its behavior.
  *
- * @package PaustianCreateJSBlock
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
 
-import {useBlockProps} from '@wordpress/block-editor';
+import { useBlockProps } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
-	const {javascriptPath, canvasWidth, canvasHeight, initFnc, description} = attributes;
-	let initId      = '';
-	let content_dir = '';
-	let animCont    = '';
-	let domOver     = '';
-	if ( ! typeof initFnc !== 'undefined') {
-		initId   = initFnc.substring( 4, initFnc.length );
-		animCont = "animation_container" + initId;
-		domOver  = "dom_overlay_container" + initId
-	}
+	const { description } = attributes;
 	return (
-		< >
-			< div { ...useBlockProps.save()} >
-				< h2 > Animation Description < / h2 >
-				< p > {description} < / p >
-			< / div >
-		< / >
+		<>
+			<div { ...useBlockProps.save() }>
+				<h2> Animation Description </h2>
+				<p> { description } </p>
+			</div>
+		</>
 	);
 }

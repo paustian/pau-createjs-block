@@ -73,38 +73,32 @@ function pau_createjs_block_editor_localize_data(): void {
 	}
 
 	wp_enqueue_script(
-		'createjs-library', // Unique handle for the script.
+		'createjs-lib', // Unique handle for the script.
 		'https://code.createjs.com/1.0.0/createjs.min.js', // Full CDN URL.
 		array(), // It has no dependencies, so the array is empty.
 		'1.0.0', // Version number.
-		false // Load in the <head> section (default, often better for libraries).
+		true
 	);
 
-	// --- Your Localization Logic ---.
 	$editor_script_handle = 'create-block-pau-createjs-block-editor-script';
-
 	// Check if the script handle has been registered.
-	if ( ! wp_script_is( $editor_script_handle, 'registered' ) ) {
-		return;
+	if ( wp_script_is( $editor_script_handle, 'registered' ) ) {
+		$script_data   = array( 'uploadUrl' => content_url());
+		$json_data     = wp_json_encode( $script_data );
+		$inline_script = "const PAU_BLOCK_DATA = {$json_data};";
+
+		wp_add_inline_script(
+			$editor_script_handle,
+			$inline_script,
+			'before'
+		);
 	}
-
-	$base_url = content_url();
-
-	$script_data   = array( 'uploadUrl' => $base_url );
-	$json_data     = wp_json_encode( $script_data );
-	$inline_script = "const PAU_BLOCK_DATA = {$json_data};";
-
-	wp_add_inline_script(
-		$editor_script_handle,
-		$inline_script,
-		'before'
-	);
 }
 // Run on 'init' with a later priority (99) to ensure registration is complete.
-add_action( 'admin_enqueue_scripts', 'pau_createjs_block_editor_localize_data', 99 );
+add_action( 'enqueue_block_editor_assets', 'pau_createjs_block_editor_localize_data', 99 );
 
 /**
- * Registers the createjs library and enqueues the createjs library. Createjs controls the HTML5 animation.
+ * Registers the createjs library and enqueues the createjs library. CreateJS controls the HTML5 animation.
  * That the block creates
  */
 function pau_createjs_register_scripts() {
@@ -118,3 +112,4 @@ function pau_createjs_register_scripts() {
 	wp_enqueue_script( 'createjs' );
 }
 add_action( 'wp_enqueue_scripts', 'pau_createjs_register_scripts' );
+
