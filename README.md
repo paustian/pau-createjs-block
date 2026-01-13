@@ -2,7 +2,6 @@
 Author: Timothy Paustian <br />
 Author URI: https://textbookconsortia.com/about-the-author/ <br />
 Contributors: tdpaustian <br />
-Donate link: <br />
 Tags:  post, page, gutenberg <br />
 Requires at least: 6.8 <br />
 Tested up to: 6.9 <br />
