@@ -4,7 +4,7 @@ Author URI: https://textbookconsortia.com/about-the-author/ <br />
 Contributors: tdpaustian <br />
 Tags:  post, page, gutenberg <br />
 Requires at least: 6.8 <br />
-Tested up to: 6.9 <br />
+Tested up to: 7.0 <br />
 Stable tag: 0.2.0 <br />
 Requires PHP: 7.4 <br />
 License: GPLv2 or later <br />
